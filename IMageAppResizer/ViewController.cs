@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using AppKit;
 using CoreGraphics;
 using Foundation;
@@ -36,6 +37,11 @@ namespace IMageAppResizer
             IOS3xCheckBox.Activated += (sender, e) =>
             {
                 AndroidXxCheckBox.State = IOS3xCheckBox.State;
+
+                if (IOS3xCheckBox.State == NSCellStateValue.On)
+                {
+                    AndroidXxxCheckBox.State = NSCellStateValue.Off;
+                }
             };
 
             AndroidXCheckBox.Activated += (sender, e) =>
@@ -93,7 +99,7 @@ namespace IMageAppResizer
             if (!CheckDestinationFolder())
                 return;
 
-            var files = Directory.GetFiles(FolderTextBox.StringValue, "*.*", SearchOption.TopDirectoryOnly).Where((x) => x.EndsWith("png") || x.EndsWith("jpg"));
+            var files = Directory.GetFiles(FolderTextBox.StringValue, "*.*", SearchOption.TopDirectoryOnly).Where((x) => x.EndsWith("png") || x.EndsWith("jpg") || x.EndsWith("jpeg"));
 
             if (!CheckFiles(files))
                 return;
@@ -109,6 +115,31 @@ namespace IMageAppResizer
             if (!iosFormats.Any() && !androidFormats.Any())
                 return;
 
+            ((NSButton)sender).Enabled = false;
+
+            ProgressBar.MinValue = 0;
+            ProgressBar.MaxValue = files.Count() * iosFormats.Count() + files.Count() * androidFormats.Count();
+
+            ProgressBar.DoubleValue = 0;
+
+            Task.Run(() =>
+            {
+                GenerateImages(files, destinationFolder, iosFormats, androidFormats);
+
+                InvokeOnMainThread(() =>
+                {
+                    ((NSButton)sender).Enabled = true;
+                });
+            });
+        }
+
+        private void UpdateProgressBar()
+        {
+            ProgressBar.IncrementBy(1);
+        }
+
+        private void GenerateImages(IEnumerable<string> files, string destinationFolder, IList<double> iosFormats, IList<double> androidFormats)
+        {
             var exportFolder = $"{destinationFolder}/image_export_{DateTime.Now.ToString("yyyyMMdd")}";
 
             Directory.CreateDirectory(exportFolder);
@@ -122,13 +153,13 @@ namespace IMageAppResizer
                 GenerateIosImages(iosFolder, files, iosFormats);
             }
 
-            if (iosFormats.Any())
+            if (androidFormats.Any())
             {
                 string androidFolder = $"{exportFolder}/Android";
 
                 Directory.CreateDirectory(androidFolder);
 
-
+                GenerateAndroidImages(androidFolder, files, androidFormats);
             }
         }
 
@@ -168,7 +199,7 @@ namespace IMageAppResizer
             }
         }
 
-        private void GenerateAndroidImages(string iosFolder, IEnumerable<string> files, IList<double> formats)
+        private void GenerateAndroidImages(string androidFolder, IEnumerable<string> files, IList<double> formats)
         {
             var highestFormat = formats.Max();
             var formatDictionary = new Dictionary<double, string>(formats.Count);
@@ -178,21 +209,29 @@ namespace IMageAppResizer
                 var subDirectory = string.Empty;
 
                 if (format == 4)
-                    subDirectory = "@3x";
+                    subDirectory = "xxxhdpi";
 
                 if (format == 3)
-                    subDirectory = "@3x";
+                    subDirectory = "xxhdpi";
 
                 if (format == 2)
-                    subDirectory = "@2x";
+                    subDirectory = "xhdpi";
+
+                if (format == 1.5)
+                    subDirectory = "hdpi";
+
+                if (format == 1)
+                    subDirectory = "mdpi";
+
+                if (format == 0.75)
+                    subDirectory = "ldpi";
 
                 formatDictionary.Add(format, subDirectory);
             }
 
             foreach (var filePath in files)
             {
-                var fileNameWithoutExtension = $"{Path.GetFileNameWithoutExtension(filePath)}";
-                var fileNameExtension = $"{Path.GetExtension(filePath)}";
+                var destinationFileName = Path.GetFileName(filePath);
 
                 var image = new NSImage(filePath);
 
@@ -200,7 +239,9 @@ namespace IMageAppResizer
 
                 foreach (var format in formatDictionary)
                 {
-                    var destinationFilePath = $"{iosFolder}/{fileNameWithoutExtension}{format.Value}{fileNameExtension}";
+                    Directory.CreateDirectory($"{androidFolder}/{format.Value}");
+
+                    var destinationFilePath = $"{androidFolder}/{format.Value}/{destinationFileName}";
 
                     CreateImage(filePath, destinationFilePath, factor1Size.Width * format.Key, factor1Size.Height * format.Key);
                 }
@@ -212,10 +253,15 @@ namespace IMageAppResizer
             var image = new NSImage(filePath);
             var newImage = Resize(image, width, height);
 
-            var rep = new NSBitmapImageRep(newImage.AsTiff());
-            var resizesImageData = rep.RepresentationUsingTypeProperties(Path.GetExtension(filePath) == "png" ? NSBitmapImageFileType.Png : NSBitmapImageFileType.Jpeg);
+            InvokeOnMainThread(() =>
+            {
+                var rep = new NSBitmapImageRep(newImage.AsTiff());
+                var resizesImageData = rep.RepresentationUsingTypeProperties(Path.GetExtension(filePath) == "png" ? NSBitmapImageFileType.Png : NSBitmapImageFileType.Jpeg);
 
-            resizesImageData.Save(destinationFilePath, true);
+                resizesImageData.Save(destinationFilePath, true);
+
+                UpdateProgressBar();
+            });
         }
 
         private NSImage Resize(NSImage image, double width, double height)
@@ -274,8 +320,10 @@ namespace IMageAppResizer
 
         private string GetDestinationFolder()
         {
-            var saveDialog = NSSavePanel.SavePanel;
+            var saveDialog = NSOpenPanel.OpenPanel;
 
+            saveDialog.CanChooseFiles = false;
+            saveDialog.CanChooseDirectories = true;
             saveDialog.CanCreateDirectories = true;
             saveDialog.Title = "Choose destination folder";
 

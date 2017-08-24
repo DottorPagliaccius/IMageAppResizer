@@ -815,6 +815,10 @@
                                     <action selector="GenerateImages:" target="XfG-lQ-9wD" id="4i2-5f-IhB"/>
                                 </connections>
                             </button>
+                            <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="9c9-0G-CS5">
+                                <rect key="frame" x="0.0" y="-1" width="541" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </progressIndicator>
                         </subviews>
                     </view>
                     <connections>
@@ -830,6 +834,7 @@
                         <outlet property="IOS2xCheckBox" destination="lsX-l3-K1D" id="9Au-2e-e8d"/>
                         <outlet property="IOS3xCheckBox" destination="hdG-08-jvJ" id="ks5-LK-5LO"/>
                         <outlet property="IOSImage" destination="Sp5-g0-bVU" id="pVi-nx-gyT"/>
+                        <outlet property="ProgressBar" destination="9c9-0G-CS5" id="or8-pG-ZBN"/>
                         <outlet property="apple1xCheckBox" destination="n7L-Qc-9uP" id="hYV-BJ-BtV"/>
                     </connections>
                 </viewController>

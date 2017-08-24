@@ -55,23 +55,19 @@
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-128.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-128%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-16.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-16%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-256.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-256%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-32.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-32%402x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-512.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-512%402x.png" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\ios-icon.dataset\Contents.json" />
-    <ImageAsset Include="Resources\Assets.xcassets\ios-icon.dataset\ios-icon.svg" />
     <ImageAsset Include="Resources\Assets.xcassets\android_icon.imageset\Contents.json" />
     <ImageAsset Include="Resources\Assets.xcassets\android_icon.imageset\android_icon.png" />
     <ImageAsset Include="Resources\Assets.xcassets\ios_icon.imageset\Contents.json" />
     <ImageAsset Include="Resources\Assets.xcassets\ios_icon.imageset\ios_icon.png" />
+    <ImageAsset Include="Resources\Assets.xcassets\.DS_Store" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon copia.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon copia 2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon copia 3.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon copia 4.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon copia 5.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon copia 6.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
