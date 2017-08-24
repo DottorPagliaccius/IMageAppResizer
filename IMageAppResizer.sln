@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMageAppResizer", "IMageAppResizer\IMageAppResizer.csproj", "{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Release|iPhone.Build.0 = Release|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{BDC58FF8-112D-4C5A-B1F2-C009C05A421E}.Debug|iPhone.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal
