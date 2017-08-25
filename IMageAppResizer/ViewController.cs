@@ -65,6 +65,13 @@ namespace IMageAppResizer
             };
         }
 
+        public override void ViewDidDisappear()
+        {
+            base.ViewDidDisappear();
+
+            NSApplication.SharedApplication.Terminate(NSApplication.SharedApplication);
+        }
+
         public override NSObject RepresentedObject
         {
             get
