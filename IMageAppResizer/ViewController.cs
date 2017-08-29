@@ -263,7 +263,7 @@ namespace IMageAppResizer
             InvokeOnMainThread(() =>
             {
                 var rep = new NSBitmapImageRep(newImage.AsTiff());
-                var resizesImageData = rep.RepresentationUsingTypeProperties(Path.GetExtension(filePath) == "png" ? NSBitmapImageFileType.Png : NSBitmapImageFileType.Jpeg);
+                var resizesImageData = rep.RepresentationUsingTypeProperties(Path.GetExtension(filePath) == ".png" ? NSBitmapImageFileType.Png : NSBitmapImageFileType.Jpeg);
 
                 resizesImageData.Save(destinationFilePath, true);
 
